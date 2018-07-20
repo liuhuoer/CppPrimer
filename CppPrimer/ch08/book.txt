@@ -1,2 +1,0 @@
-C++Primer 1 128
-Effective C++ 1 60
