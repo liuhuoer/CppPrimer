@@ -7,7 +7,7 @@ using std::cout;using std::endl;using std::string;using std::vector;using std::i
 
 int main()
 {
-	ifstream ifs("./letter.txt");	//review_1:ifstream	
+	ifstream ifs("../data/letter.txt");	//review_1:ifstream	
 	if(!ifs)
 		return -1;		//rewrite_1:judge the file
 
