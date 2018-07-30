@@ -13,23 +13,23 @@ void elimDups(vector<string> & vs)
 	vs.erase(end_unique,vs.end());
 }
 
-string make_plural(int count,const string & word,const string & s)
-{
-	return (count>1)?word+s:word;	
-}
-
 void biggies(vector<string> & vs,int sz)
 {
 	//lexicographical order;
 	elimDups(vs);
+
 	//size order;
 	stable_sort(vs.begin(),vs.end(),[](const string & s1,const string & s2){return s1.size()<s2.size();});
-	//find the first position that size is big enough;
+	
+	//(changed)find the first position that size is big enough;
 	auto wc=stable_partition(vs.begin(),vs.end(),[sz](const string & s){return s.size()<sz;});
+
 	//calculate the nums of these string;
 	auto count=vs.end()-wc;
+	auto word_s=[count](const string & word,const string & s){return (count>1)?word+s:word;};
+
 	//print;
-	cout<<"there are "<<count<<" "<<make_plural(count,"word","s")<<" of length "<<sz<<" or longer."<<endl;
+	cout<<"there are "<<count<<" "<<word_s("word","s")<<" of length "<<sz<<" or longer."<<endl;
 	for_each(wc,vs.end(),[](const string & s){cout<<s<<" "<<endl;});
 }
 

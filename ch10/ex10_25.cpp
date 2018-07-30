@@ -3,14 +3,20 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
+#include <functional>
 
-using std::cout;using std::endl;using std::vector;using std::string;using std::stable_sort;using std::ifstream;
+using namespace std::placeholders;using std::cout;using std::endl;using std::vector;using std::string;using std::stable_sort;using std::ifstream;
 
 void elimDups(vector<string> & vs)
 {
 	sort(vs.begin(),vs.end());
 	auto end_unique=unique(vs.begin(),vs.end());
 	vs.erase(end_unique,vs.end());
+}
+
+bool check_size(const string & s,int sz)
+{
+	return s.size()<sz;
 }
 
 void biggies(vector<string> & vs,int sz)
@@ -21,8 +27,8 @@ void biggies(vector<string> & vs,int sz)
 	//size order;
 	stable_sort(vs.begin(),vs.end(),[](const string & s1,const string & s2){return s1.size()<s2.size();});
 
-	//find the first position that size is big enough;
-	auto wc=find_if(vs.begin(),vs.end(),[sz](const string & s){return s.size()>sz;});
+	//(changed)find the first position that size is big enough;
+	auto wc=partition(vs.begin(),vs.end(),bind(check_size,_1,sz));
 
 	//calculate the nums of these string;
 	auto count=vs.end()-wc;
