@@ -23,9 +23,10 @@ int main()
 	auto value_0=find(li.crbegin(),li.crend(),0);
 	cout<<distance(value_0,li.crbegin())<<endl;
 	//ex10_37
-	list<int> li_source{0,1,2,3,4,5,6,7,8,9};
+	cout<<"ex10_37"<<endl;
+	vector<int> vi_source{0,1,2,3,4,5,6,7,8,9};
 	list<int> li_dest;
-	copy(li_source.rbegin()+3,li_source.rbegin()+7,back_insert(li_dest));
+	copy(vi_source.rbegin()+3,vi_source.rbegin()+8,back_inserter(li_dest));
 	for(auto a:li_dest)
 		cout<<a<<endl;
 
