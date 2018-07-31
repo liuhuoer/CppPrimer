@@ -1,28 +1,30 @@
-#include "../ch07/ex7_21.h" 
+#include "../header/Sales_data.h" 
 #include <vector>
 #include <iterator>
+#include <algorithm>
+#include <numeric>
 
-using std::vector;using std::istream_iterator;
-
-bool compareIsbn(const Sales_data & s1,const Sales_data & s2)
-{
-	return s1.isbn()<s2.isbn();
-}
+using std::cin;using std::vector;using std::istream_iterator;
 
 int main()
 {
-	istream_iterator<Sales_data> in(in),eof;
+	istream_iterator<Sales_data> in(cin),eof;
 	vector<Sales_data> vs;
 
+	//copy from stream to vs;
 	copy(in,eof,back_inserter(vs));
+	//sort;
+	sort(vs.begin(),vs.end(),compareIsbn);
 
-	
-	while(in!=eof)
-		if()
-	for(auto a:vs)
+	//calculate sum;
+	auto beg=vs.begin(),curr=beg;
+	for(;beg!=vs.end();beg=curr)
 	{
-		print(cout,a);
-		cout<<endl;
+		//find the position of diffierent isbn;
+		curr=find_if(beg,vs.end(),[beg](const Sales_data & sd){return beg->isbn()!=sd.isbn();});
+		//calculate sum of same isbn, and output;
+		cout<<accumulate(beg,curr,Sales_data(beg->isbn()))<<endl;	//rewrite_: change to beg->isbn();
 	}
+	
 	return 0; 
 }
