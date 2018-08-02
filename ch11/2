@@ -1,0 +1,11 @@
+#include "../header/Sales_data.h"
+#include <iostream>
+
+using std::cout;using std::endl;
+
+int main()
+{
+	using p_compareIsbn=bool (*) compareIsbn(const Sales_data &,const Sales_data &);
+	multiset<Sales_data,p_compareIsbn> ms(compareIsbn);
+	return 0;
+}
