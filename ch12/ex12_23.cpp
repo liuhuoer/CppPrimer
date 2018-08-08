@@ -7,8 +7,10 @@ using std::cout;using std::endl;using std::string;
 int main()
 {
 	//concatenate char[];
-	//rewrite_:strlen("hello ""world")-2;
-	char* cat_str=new char[strlen("hello ""world")-2]();
+	//rewrite_:strlen("hello ""world");
+	char* cat_str=new char[strlen("hello ""world")]();
+	//cout<<"test:"<<strlen("hello ""world")<<endl;
+	
 	//rewrite_:use char * strcat(char *dest,char *src);
 	strcat(cat_str,"hello ");
 	strcat(cat_str,"world");
