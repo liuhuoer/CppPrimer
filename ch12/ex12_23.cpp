@@ -8,8 +8,8 @@ int main()
 {
 	//concatenate char[];
 	//rewrite_:strlen("hello ""world");
-	char* cat_str=new char[strlen("hello ""world")]();
-	//cout<<"test:"<<strlen("hello ""world")<<endl;
+	char* cat_str=new char[strlen("hello ""world")+1]();
+	/*cout<<"test:"<<strlen("hello ""world")<<endl;*/
 	
 	//rewrite_:use char * strcat(char *dest,char *src);
 	strcat(cat_str,"hello ");
