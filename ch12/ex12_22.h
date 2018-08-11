@@ -17,8 +17,8 @@ class StrBlob
 {
 public:
 	friend class ConstStrBlobPtr;
-	ConstStrBlobPtr begin();
-	ConstStrBlobPtr end();
+	ConstStrBlobPtr begin() const;
+	ConstStrBlobPtr end() const;
 //	ConstStrBlobPtr begin(){return StrBlobPtr(*this);}
 //	ConstStrBlobPtr end(){return StrBlobPtr(*this,data->size());}
 

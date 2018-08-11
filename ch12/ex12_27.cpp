@@ -4,7 +4,6 @@ using std::cin;
 
 auto runQueries(ifstream & ifs)
 {
-	//
 	TextQuery tq(ifs);
 	while(true)
 	{
