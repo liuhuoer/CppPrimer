@@ -6,7 +6,7 @@ class numbered
 {
 public:
 	numbered(){mysn=++count;}
-	numbered(const numbered &){mysn=++count;}
+	//numbered(const numbered &){mysn=++count;}
 
 	int mysn;
 	static int count;	//rewrite_:init must out of class;
