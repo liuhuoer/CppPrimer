@@ -1,38 +1,37 @@
-#ifndef CP5_ex13_11_h
-#define CP5_ex13_11_h
+#ifndef ex13_30_h
+#define ex13_30_h
 
-#include <string>
 #include <iostream>
+#include <string>
 
-class HasPtr {
+using std::string;
+
+class HasPtr
+{
 public:
-    friend void swap(HasPtr&, HasPtr&);
-    HasPtr(const std::string &s = std::string()) : ps(new std::string(s)), i(0) { }
-    HasPtr(const HasPtr &hp) : ps(new std::string(*hp.ps)), i(hp.i) { }
-    HasPtr& operator=(const HasPtr &hp) {
-        auto new_p = new std::string(*hp.ps);
-        delete ps;
-        ps = new_p;
-        i = hp.i;
-        return *this;
-    }
-    ~HasPtr() {
-        delete ps;
-    } 
-    
-    void show() { std::cout << *ps << std::endl; }
+	friend void swap(HasPtr & lhp,HasPtr & rhp);
+	HasPtr(const string & s=string()):ps(new string(s)),i(0){}
+	HasPtr(const HasPtr &hp):ps(hp.ps),i(hp.i){}
+	HasPtr & operator=(const HasPtr & rhp);
+	~HasPtr();
 private:
-    std::string *ps;
-    int i;
+	int i;
+	string *ps;
 };
 
-inline
-void swap(HasPtr& lhs, HasPtr& rhs)
+inline 	//rewrite_:add inline to optimized code;
+void swap(HasPtr & lhp,HasPtr & rhp)
 {
-    using std::swap;
-    swap(lhs.ps, rhs.ps);
-    swap(lhs.i, rhs.i);
-    std::cout << "call swap(HasPtr& lhs, HasPtr& rhs)" << std::endl;
+	using std::swap;
+	swap(lhp.ps,rhp.ps);
+	swap(lhp.i,rhp.i);
+	std::cout<<"void swap(HasPtr & lhp,HasPtr & rhp)"<<std::endl;
 }
 
+
+inline
+~HasPtr()
+{
+	delete ps;
+}
 #endif

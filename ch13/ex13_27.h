@@ -8,7 +8,7 @@ using std::string;
 class HasPtr
 {
 public:
-	HasPtr(const string & s=string()):ps(new string(s)),i(0),use(new size_t(1)){};
+	HasPtr(const string & s=string()):ps(new string(s)),i(0),use(new size_t(1)){}
 	HasPtr(const HasPtr &hp):ps(hp.ps),i(hp.i),use(hp.use){++*use;}
 	HasPtr & operator=(const HasPtr & hp);
 	~HasPtr();
@@ -23,8 +23,8 @@ HasPtr & HasPtr::operator=(const HasPtr & rhp)
 	++*rhp.use;
 	if(--*use==0)
 	{
-		delete use;
 		delete ps;
+		delete use;
 	}
 	ps=rhp.ps;
 	i=rhp.i;
@@ -37,8 +37,8 @@ HasPtr & HasPtr::operator=(const HasPtr & rhp)
 {
 	if(--*use==0)
 	{
-		delete use;
 		delete ps;
+		delete use;
 	}
 }
 #endif
