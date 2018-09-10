@@ -1,5 +1,5 @@
-#ifndef ex13_34_h
-#define ex13_34_h
+#ifndef ex13_36_h
+#define ex13_36_h
 
 #include <string>
 #include <set>
@@ -29,5 +29,24 @@ private:
 };
 
 void swap(Message &,Message &);
+
+class Folder
+{
+	friend class Message;
+	friend void swap(Folder &,Folder &);
+public:
+	Folder()=default;
+	Folder(const Folder &);
+	Folder& operator=(const Folder &);
+	~Folder();
+	void addMsg(Message *m){msgs.insert(m);}
+	void remMsg(Message *m){msgs.erase(m);}
+private:
+	set<Message *> msgs;
+	void add_to_Message(const Folder &);
+	void remove_from_Message();
+};
+
+void swap(Folder &,Folder &);
 
 #endif
