@@ -12,7 +12,7 @@ TextQuery::TextQuery(ifstream & ifs):file(new StrVec)//rewrite_:init file with n
 			auto & curr=wm[word];
 			if(!curr)
 				//rewrite_:using reset(new set);
-				curr.reset(new set<line_no>);
+				curr.reset(new set<size_t>);
 			curr->insert(n);
 		}
 	}
@@ -21,7 +21,7 @@ TextQuery::TextQuery(ifstream & ifs):file(new StrVec)//rewrite_:init file with n
 QueryResult TextQuery::query(const string & word) const
 {
 	auto p=wm.find(word);
-	static shared_ptr<set<line_no>> no_find(new set<line_no>);
+	static shared_ptr<set<size_t>> no_find(new set<size_t>);
 	if(p==wm.end())
 		return QueryResult(word,no_find,file);
 	else
@@ -37,8 +37,8 @@ ostream & print(ostream & out,const QueryResult & qr)
 
 		auto ptr=qr.file->begin();
 		for(;a!=0;a--)
-			ptr.incr();
-		out<<ptr.deref()<<endl;
+			++ptr;
+		out<<*ptr<<endl;
 	}
 
 	return out;

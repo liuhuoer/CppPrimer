@@ -71,8 +71,3 @@ void StrVec::free()
 		alloc.deallocate(elements,cap-elements);
 	}
 }
-
-int main()
-{
-	return 0;
-}

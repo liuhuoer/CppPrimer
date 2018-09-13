@@ -1,4 +1,6 @@
 #include "ex13_40.h"
+#include <algorithm>
+
 allocator<string> StrVec::alloc;
 
 StrVec::StrVec(const StrVec & s)
@@ -59,13 +61,15 @@ void StrVec::reallocate()
 pair<string*, string*> StrVec::alloc_n_copy(const string* b, const string* e)
 {
 	auto b_newdata=alloc.allocate(e-b);
-	return {b_newdata,uninitialized_copy(b,e,b_newdata)};
+	return {b_newdata,std::uninitialized_copy(b,e,b_newdata)};
 }
 
 void StrVec::free()
 {
 	if(elements)
 	{
+		//ex13_43
+		//std::for_each(elements,first_free,[](const string& s){alloc.destroy(&s);});
 		for(auto p=first_free; p!=elements; )
 			alloc.destroy(--p);
 		alloc.deallocate(elements,cap-elements);

@@ -11,7 +11,7 @@
 #include <memory>
 #include <fstream>
 
-using std::ostream;using std::size_t;using std::cin;using std::cout;using std::endl;using std::string;using std::vector;using std::map;using std::set;using std::istringstream;using std::shared_ptr;using std::ifstream;using line_no=StrVec::size_type;
+using std::ostream;using std::size_t;using std::cin;using std::cout;using std::endl;using std::string;using std::vector;using std::map;using std::set;using std::istringstream;using std::shared_ptr;using std::ifstream;
 
 class QueryResult;
 
@@ -23,17 +23,17 @@ public:
 private:
 	//StrVec file;
 	shared_ptr<StrVec> file;
-	map<string,shared_ptr<set<line_no>>> wm;
+	map<string,shared_ptr<set<size_t>>> wm;
 };
 
 class QueryResult
 {
 friend	ostream & print(ostream &,const QueryResult &);
 public:
-	QueryResult(string s,shared_ptr<set<line_no>> ss,shared_ptr<StrVec> sv):word(s),lines(ss),file(sv){ }
+	QueryResult(string s,shared_ptr<set<size_t>> ss,shared_ptr<StrVec> sv):word(s),lines(ss),file(sv){ }
 private:
 	string word;
-	shared_ptr<set<line_no>> lines;
+	shared_ptr<set<size_t>> lines;
 	shared_ptr<StrVec> file;
 };
 
