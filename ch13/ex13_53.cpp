@@ -1,4 +1,4 @@
-#include "ex13_31.h"
+#include "ex13_53.h"
 #include <algorithm>
 
 inline	//rewrite_:add inline to optimized code;
@@ -30,6 +30,16 @@ HasPtr & HasPtr::operator=(HasPtr rhp)
 	return *this;
 }
 
+/*
+HasPtr & HasPtr::operator=(HasPtr&& rhp)
+{
+	std::cout<<"=_move"<<std::endl;
+	this->swap(rhp);
+
+	return *this;
+}
+*/
+
 void HasPtr::output()
 {
 	std::cout<<*ps<<std::endl;
@@ -38,19 +48,10 @@ void HasPtr::output()
 
 int main()
 {
-	//input;
-	HasPtr a("c"),b("b"),c("a");
-	vector<HasPtr> vh{a,b,c};
-	//vector<HasPtr> vh;
-	//for(string s;std::cin>>s;)
-	//	vh.emplace_back(s);
-
-	//sort;
-	std::sort(vh.begin(),vh.end());
-
-	//output;
-	for(auto a:vh)
-		a.output();
-
+	HasPtr hp1("hello"),hp2("world");
+	cout<<"\noriginal:"<<endl;
+	hp1=hp2;
+	cout<<"\nmove:"<<endl;
+	hp1=std::move(hp2);
 	return 0;
 }

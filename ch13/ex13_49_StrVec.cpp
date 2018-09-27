@@ -6,7 +6,7 @@
 allocator<string> StrVec::alloc;
 
 /*add*/
-StrVec::StrVec(StrVec &&)noexcept:elements(s.elements),firstfree(s.firstfree),cap(s.cap)
+StrVec::StrVec(StrVec && s)noexcept:elements(s.elements),first_free(s.first_free),cap(s.cap)
 {
 	s.elements=s.first_free=s.cap=nullptr;
 }

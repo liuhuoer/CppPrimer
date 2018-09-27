@@ -1,4 +1,8 @@
-#include "ex13_44.h"
+#include "ex13_50.h"
+#include <iostream>
+#include <vector>
+
+using std::vector;using std::cout;using std::endl;
 
 pair<char*, char*> String::alloc_n_copy(const char* b, const char* e)
 {
@@ -13,9 +17,33 @@ void String::range_initializer(const char* b, const char* e)
 	first_free=newdata.second;
 }
 
+/*add
+ * */
+String::String(String&& s)noexcept:elements(s.elements),first_free(s.first_free)
+{
+	cout<<"String(String&&)_move"<<endl;
+	s.elements=s.first_free=nullptr;
+}
+
+String& String::operator=(String&& rhs)noexcept
+{
+	cout<<"=_move"<<endl;
+	if(this!=&rhs)
+	{
+		free();
+		elements=rhs.elements;
+		first_free=rhs.first_free;
+		rhs.elements=rhs.first_free=nullptr;
+	}
+	return *this;
+}
+
+/**/
+
 String::String(const String& s)
 {
 	range_initializer(s.begin(),s.end());
+	cout<<"String(const String&)"<<endl;
 }
 
 //rewrite_:
@@ -26,6 +54,7 @@ String::String(const char* c_const)
 		++c;
 	//###debug_:
 	range_initializer(c_const,c);
+	cout<<"String(const char*)"<<endl;
 }
 
 String& String::operator=(const String& s)
@@ -34,6 +63,8 @@ String& String::operator=(const String& s)
 	free();
 	elements=newdata.first;
 	first_free=newdata.second;
+	
+	cout<<"=_move"<<endl;
 	return *this;
 }
 
@@ -69,7 +100,27 @@ void String::reallocate()
 	cap=newdata+newcapacity;
 }
 */
+
+void print(const String& s)
+{
+	auto b=s.begin();
+	for(int i=0;i<s.size();++b,++i)
+		cout<<*b;
+	cout<<endl;
+}
+
 int main()
 {
+	String temp("world");
+	vector<String> vs;
+
+	cout<<"\nret1:"<<endl;
+	String ret1(temp);
+	vs.push_back(ret1);
+	//compare;	
+	cout<<"\nret2:"<<endl;
+	String ret2(std::move(temp));	//avoid copy first;
+	vs.push_back(ret2);		//avoid copy second;
+
 	return 0;
 }

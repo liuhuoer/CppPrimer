@@ -91,4 +91,8 @@ void String::reallocate()
 	cap=newdata+newcapacity;
 }
 */
-//
+
+int main()
+{
+	return 0;
+} 
