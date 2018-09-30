@@ -1,5 +1,12 @@
-//#include "ex13_44.h"
-#include "ex13_49_String.h"
+#include "ex14_7.h"
+
+ostream& operator<<(ostream& os, const String& rhs)
+{
+	auto p=rhs.elements;
+	for(;p!=rhs.first_free;)
+		os<<*p++;
+	return os;
+}
 
 pair<char*, char*> String::alloc_n_copy(const char* b, const char* e)
 {
@@ -94,5 +101,7 @@ void String::reallocate()
 
 int main()
 {
+	String s("hello world!");
+	std::cout<<s;
 	return 0;
 } 
