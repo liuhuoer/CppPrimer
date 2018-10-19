@@ -1,4 +1,4 @@
-#include "ex14_19.h"
+#include "ex14_9.h"
 
 Sales_data::Sales_data(std::istream & is):Sales_data()
 {

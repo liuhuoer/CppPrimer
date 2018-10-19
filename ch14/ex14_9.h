@@ -1,5 +1,5 @@
-#ifndef EX14_19_H
-#define Ex14_19_H
+#ifndef EX14_9_H
+#define Ex14_9_H
 #include <iostream>
 #include <string>
 
