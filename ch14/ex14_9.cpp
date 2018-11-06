@@ -2,7 +2,7 @@
 
 Sales_data::Sales_data(std::istream & is):Sales_data()
 {
-	cout<<"Sales_data(std::istream & is)"<<endl;
+	//cout<<"Sales_data(std::istream & is)"<<endl;
 	is>>*this;
 }
 
@@ -70,10 +70,5 @@ Sales_data& Sales_data::operator+=(const Sales_data& rhs)
 	count+=rhs.count;
 	revenue+=rhs.revenue;
 	return *this;
-}
-
-int main()
-{
-	return 0;
 }
 

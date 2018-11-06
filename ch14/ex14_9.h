@@ -23,14 +23,17 @@ class Sales_data
 
 public:
 	Sales_data():Sales_data("",0,0.0f)
-	{cout<<"Sales_data()"<<endl;}
+	{//cout<<"Sales_data()"<<endl;
+	}
 
 	Sales_data(const string & s):Sales_data(s,0,0.0f)
-	{cout<<"Sales_data(const std::string &)"<<endl;}
+	{//cout<<"Sales_data(const std::string &)"<<endl;
+	}
 
 	Sales_data(const string & s,unsigned n,double p):
 		book_no(s),count(n),revenue(p*n)
-	{cout<<"Sales_data(const string & s,unsigned n,double p)"<<endl;}
+	{//cout<<"Sales_data(const string & s,unsigned n,double p)"<<endl;
+	}
 
 	Sales_data(std::istream & is);
 
