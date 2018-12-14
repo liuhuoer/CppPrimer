@@ -47,7 +47,7 @@ String::String(const char* c_const)
 	while(*c)
 		++c;
 	//###debug_:
-	range_initializer(c_const,c);
+	range_initializer(c_const, ++c);
 }
 
 String& String::operator=(const String& s)
