@@ -1,5 +1,5 @@
-#ifndef EX14_28
-#define EX14_28
+#ifndef EX14_30
+#define EX14_30
 
 #include <iostream> 
 #include <string>
@@ -18,6 +18,7 @@ using std::initializer_list;
 using std::out_of_range;
 
 class StrBlobPtr;
+class ConstStrBlobPtr;
 
 /*****************************************************************
  * 				class - StrBlob
@@ -27,6 +28,7 @@ class StrBlob
 {
 	using size_type=vector<string>::size_type;
 	friend class StrBlobPtr;
+	friend class ConstStrBlobPtr;
 	friend bool operator==(const StrBlob&, const StrBlob&);
 	friend bool operator!=(const StrBlob&, const StrBlob&);
 	friend bool operator<(const StrBlob&, const StrBlob&);
@@ -53,6 +55,9 @@ public:
 	StrBlobPtr begin();
 	StrBlobPtr end();
 
+	ConstStrBlobPtr cbegin();
+	ConstStrBlobPtr cend();
+
 	void push_back(const string & s) {data->push_back(s);}
 	void push_back(string&& s) {data->push_back(std::move(s));}
 	void pop_back();
@@ -78,7 +83,6 @@ bool operator<(const StrBlob&, const StrBlob&);
 bool operator>(const StrBlob&, const StrBlob&);
 bool operator<=(const StrBlob&, const StrBlob&);
 bool operator>=(const StrBlob&, const StrBlob&);
-
 
 
 inline
@@ -143,16 +147,14 @@ public:
 	StrBlobPtr():curr(0){}
 	StrBlobPtr(StrBlob &a, size_t curr_ = 0):
 		wpvs(a.data), curr(curr_) {}
-//	StrBlobPtr(const StrBlobPtr& sbp) : wpvs(std::weak_ptr<vector<string>>(sbp.wpvs)), curr(sbp.curr) {}
-//	StrBlobPtr& operator=(const StrBlobPtr&);
 
+	const string& operator*() const;
+	const string* operator->() const;
 	StrBlobPtr operator+(size_t) const;
 	StrBlobPtr operator-(size_t) const;
 	StrBlobPtr& operator+=(size_t);
 	StrBlobPtr& operator-=(size_t);
 	
-	string& deref() const;//deref*;
-
 	StrBlobPtr& operator++();
 	StrBlobPtr operator++(int);
 	StrBlobPtr& operator--();
@@ -176,10 +178,16 @@ bool operator>=(const StrBlobPtr&, const StrBlobPtr&);
 
 
 inline
-string & StrBlobPtr::deref()const
+const string& StrBlobPtr::operator*() const
 {
-	auto ptr=check(curr, "dereference past end");
+	auto ptr = check(curr, "dereference past end");
 	return (*ptr)[curr];
+}
+
+inline 
+const string* StrBlobPtr::operator->() const 
+{
+	return & this->operator*();
 }
 
 inline
@@ -260,5 +268,148 @@ shared_ptr<vector<string>> StrBlobPtr::check(size_t i, const string & msg) const
 
 	return ptr;
 }
+
+/********************************************************************
+ * 				class - ConstStrBlobPtr
+ * *****************************************************************/
+
+class ConstStrBlobPtr
+{
+	friend bool operator==(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+	friend bool operator!=(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+
+	friend bool operator<(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+	friend bool operator>(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+	friend bool operator<=(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+	friend bool operator>=(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+
+public:
+	ConstStrBlobPtr():curr(0){}
+	ConstStrBlobPtr(StrBlob &a, size_t curr_ = 0):
+		wpvs(a.data), curr(curr_) {}
+	ConstStrBlobPtr(const ConstStrBlobPtr& sbp) : wpvs(std::weak_ptr<vector<string>>(sbp.wpvs)), curr(sbp.curr) {}
+	ConstStrBlobPtr& operator=(const ConstStrBlobPtr&);
+
+	const string& operator*() const;
+	const string* operator->() const;
+	ConstStrBlobPtr operator+(size_t) const;
+	ConstStrBlobPtr  operator-(size_t) const;
+	ConstStrBlobPtr& operator+=(size_t);
+	ConstStrBlobPtr& operator-=(size_t);
+	
+	ConstStrBlobPtr& operator++();
+	ConstStrBlobPtr operator++(int);
+	ConstStrBlobPtr& operator--();
+	ConstStrBlobPtr operator--(int);
+
+private:
+	shared_ptr<vector<string>> check(size_t, const string &)const;
+	weak_ptr<vector<string>> wpvs;
+	size_t curr;
+};
+
+/**************************************************************
+ *			StrBlobPtr - inline & operator_friend
+ * ***********************************************************/
+bool operator==(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+bool operator!=(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+
+bool operator<(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+bool operator>(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+bool operator<=(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+bool operator>=(const ConstStrBlobPtr&, const ConstStrBlobPtr&);
+
+inline
+const string& ConstStrBlobPtr::operator*() const
+{
+	auto ptr = check(curr, "dereference past end");
+	return (*ptr)[curr];
+}
+
+inline 
+const string* ConstStrBlobPtr::operator->() const 
+{
+	return & this->operator*();
+}
+
+inline
+ConstStrBlobPtr& ConstStrBlobPtr::operator++()
+{
+	++curr;
+	check(curr, "increase past end of StrBlobPtr");
+	return *this;
+}
+
+inline
+ConstStrBlobPtr ConstStrBlobPtr::operator++(int)
+{
+	ConstStrBlobPtr temp = *this;
+	++*this;
+	return temp;
+}
+
+inline
+ConstStrBlobPtr& ConstStrBlobPtr::operator--()
+{
+	--curr;
+	check(curr, "decrease past end of StrBlobPtr");
+	return *this;
+}
+
+inline
+ConstStrBlobPtr ConstStrBlobPtr::operator--(int)
+{
+	ConstStrBlobPtr temp = *this;
+	--*this;
+	return temp;
+}
+
+inline
+ConstStrBlobPtr& ConstStrBlobPtr::operator+=(size_t n)
+{
+	curr += n;
+	check(curr, "increase past end of StrBlobPtr");
+	return *this;
+
+}
+
+inline 
+ConstStrBlobPtr& ConstStrBlobPtr::operator-=(size_t n) 
+{
+	 curr -= n;
+	 check(curr, "decrease past end of StrBlobPtr");
+	 return *this;
+}
+
+inline 
+ConstStrBlobPtr ConstStrBlobPtr::operator+(size_t n) const
+{
+	ConstStrBlobPtr temp = *this;
+	temp += n;
+	return temp;
+}
+
+inline 
+ConstStrBlobPtr ConstStrBlobPtr::operator-(size_t n) const
+{
+	ConstStrBlobPtr temp = *this;
+	temp -= n;
+	return temp;
+}
+
+inline
+shared_ptr<vector<string>> ConstStrBlobPtr::check(size_t i, const string & msg) const
+{
+	//using lock() test the effective of vector;
+	//rewrite_: using lock();
+	auto ptr = wpvs.lock();
+	if(!ptr)
+		throw std::runtime_error("unbound StrBlobPtr");
+	if(i > ptr->size())
+		throw out_of_range(msg);
+
+	return ptr;
+}
+
 
 #endif

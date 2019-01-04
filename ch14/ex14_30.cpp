@@ -1,4 +1,4 @@
-#include "ex14_28.h"
+#include "ex14_30.h"
 
 /********************************************************
  * 			class - StrBlob
@@ -59,9 +59,19 @@ StrBlobPtr StrBlob::begin()
 
 StrBlobPtr StrBlob::end()
 {
-	return StrBlobPtr(*this,data->size());
+	return StrBlobPtr(*this, data->size());
 }
 
+ConstStrBlobPtr StrBlob::cbegin()
+{
+	return ConstStrBlobPtr(*this);
+}
+
+ConstStrBlobPtr StrBlob::cend()
+{
+	return ConstStrBlobPtr(*this, data->size());
+}
+	
 /********************************************************
  * 			class - StrBlobPtr - operator_friend
  * ****************************************************/
@@ -96,13 +106,46 @@ bool operator>=(const StrBlobPtr& lhs, const StrBlobPtr& rhs)
 	return !(lhs < rhs);
 }
 
+/********************************************************
+ * 			class - ConstStrBlobPtr - operator_friend
+ * ****************************************************/
 
-/*
- *StrBlobPtr& StrBlobPtr::operator=(const StrBlobPtr& rhs)
- *{
- *	wpvs = weak_ptr<vector<string>>(rhs.wpvs);
- *	curr = rhs.curr;
- *	return *this;
- *}
-*/
+bool operator==(const ConstStrBlobPtr& lhs, const ConstStrBlobPtr& rhs)
+{
+	return lhs.curr == rhs.curr;
+}
+
+bool operator!=(const ConstStrBlobPtr& lhs, const ConstStrBlobPtr& rhs)
+{
+	return !(lhs == rhs);
+}
+
+bool operator<(const ConstStrBlobPtr& lhs, const ConstStrBlobPtr& rhs)
+{
+	return lhs.curr < rhs.curr;
+}
+
+bool operator>(const ConstStrBlobPtr& lhs, const ConstStrBlobPtr& rhs)
+{
+	return rhs.curr > rhs.curr;
+}
+
+bool operator<=(const ConstStrBlobPtr& lhs, const ConstStrBlobPtr& rhs)
+{
+	return !(lhs > rhs);
+}
+
+bool operator>=(const ConstStrBlobPtr& lhs, const ConstStrBlobPtr& rhs)
+{
+	return !(lhs < rhs);
+}
+
+
+ConstStrBlobPtr& ConstStrBlobPtr::operator=(const ConstStrBlobPtr& rhs)
+{
+	wpvs = weak_ptr<vector<string>>(rhs.wpvs);
+	curr = rhs.curr;
+	return *this;
+}
+
 
