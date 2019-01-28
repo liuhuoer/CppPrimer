@@ -21,8 +21,9 @@ public:
 	TextQuery(ifstream & ifs);
 	QueryResult query(const string &) const;
 private:
-	//StrVec file;
+	//vector<line_strings>
 	shared_ptr<StrVec> file;
+	//map<word, set<line_number>>
 	map<string,shared_ptr<set<size_t>>> wm;
 };
 
@@ -33,7 +34,9 @@ public:
 	QueryResult(string s,shared_ptr<set<size_t>> ss,shared_ptr<StrVec> sv):word(s),lines(ss),file(sv){ }
 private:
 	string word;
+	//set<line_number>
 	shared_ptr<set<size_t>> lines;
+	//vector<line_strings>
 	shared_ptr<StrVec> file;
 };
 

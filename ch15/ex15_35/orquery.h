@@ -11,7 +11,6 @@ class OrQuery : public BinaryQuery
 	{ cout << "OrQuery(const query&, const query&)" << endl;}
 	QueryResult eval(const TextQuery& t) const override
 	{ 
-	Query test = Query("fiery") & Query("bird") | Query("wind");
 		//must add this function body
 	}
 

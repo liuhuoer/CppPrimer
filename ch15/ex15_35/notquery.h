@@ -9,7 +9,8 @@ class NotQuery : public Query_base
 
 	NotQuery(const Query& q) : query(q)
 	{ cout << "NotQuery(const Query&)" << endl;}
-	QueryResult eval(const TextQuery& t) const; 
+	QueryResult eval(const TextQuery& t) const
+	{ }
 	std::string rep() const
 	{ 
 		cout << "NotQuery::rep()" << endl;

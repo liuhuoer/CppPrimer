@@ -1,0 +1,101 @@
+**************************************************************************
+HasPtr	:
+ex13_5	: define HasPtr
+
+**************************************************************************
+StrVec	: #P465#string*#allocator#
+ex13_42_StrVec
+ex13_49_StrVec
+ex14_16_StrVec
+ex14_18_StrVec 	: add <, >, <=, >=
+ex14_23		: add StrVEc(initialiser_list)
+ex14_26_StrVec	: add []
+
+**************************************************************************
+String	: #P470#char*#allocator#
+ex13_49_String
+ex14_7
+ex14_16
+ex14_18_String	: add <, >, <=, >=
+ex14_26_String	: add []
+
+**************************************************************************
+Message	: #P460#string#M(const M&)#
+ex13_49_Message
+
+**************************************************************************
+StrBlob	: #P404#shared_ptr<v<s>>#
+ex12_22
+ex13_55
+ex14_16_StrBlob
+ex14_18_StrBlob	: add <, >, <=, >=
+ex14_26_StrBlob	: add []
+ex14_27		: add ++, --
+ex14_28		: add +
+
+**************************************************************************
+Query	: #P430#shared_ptr<v<s>>#interface# query word in *.txt
+ex12_30	: define Query
+ex12_32	: using StrBlob replace vector<string>
+ex13_42_Query	: using StrVec replace StrBlob
+ex15_35	: add interface Query and Query_base based on ex12_32(StrBlob->ex14_28)
+ex15_39	: define function eval in Query ...
+ex15_42_b	: add histroy
+ex15_42_c	: add limit to result
+
+**************************************************************************
+Sales_data	:
+ex14_2
+ex14_13
+ex14_20	: add +, +=
+ex14_22	: add =(ISBN)
+ex14_45	: add conversion operator
+
+**************************************************************************
+Book	:
+ex14_5
+ex14_15
+ex14_19	: add <, >
+ex14_24	: add Book(const Book&), Book(Book&&) and Book& operator=(Book&&)
+ex14_49	: add conversion operator
+
+**************************************************************************
+IsEqual	: count word's size() number
+ex14_38
+ex14_39
+
+**************************************************************************
+biggies	: the words number, which bigger than sz
+ex10_18	: write with lambda 
+ex14_40	: write with function
+
+**************************************************************************
+caculator	: caculator any binary operations
+ex14_44
+
+**************************************************************************
+exact_division	: a / b == 0
+ex14_43
+
+**************************************************************************
+Quote 	: book discounting
+ex15_3	: define Quote class and print_total function
+ex15_5	: define Bulk_quote
+ex15_7	: define Limit_quote
+ex15_11/: add debug function in Quote
+ex15_15/: add Disc_quote and change the inherit
+ex15_26/: redefine constructor and print the used one
+ex15_27/: redefine Bulk_quote 
+ex15_28/: test vector
+ex15_30/: define basket
+
+
+**************************************************************************
+Base	: learn base class
+ex15_13	: define Base and derived classes
+ex15_20	: add Pub_Deriv, Priv_Deriv, Prot_Deriv, Derived_from_pub, ...
+
+**************************************************************************
+shape	: inherit learning
+ex15_21	: define class like Shape, Rectangle, Square
+
